@@ -63,13 +63,25 @@ export default {
   data () {
     return {
       drawer: null,
-      menuItems: [
-        { icon: 'supervisor_account', title: 'View Posts' , link: '/Posts'},
-        { icon: 'room', title: 'Create a new Post' , link: '/CreatePost'},
-        { icon: 'person', title: 'Profile' , link: '/Profile'},
-        { icon: 'face', title: 'Sign up' , link: '/Signin'},
-        { icon: 'lock_open', title: 'Sign in' , link: '/Signup'},
+    }
+  },
+  computed: {
+    menuItems () {
+      let menuItems = [
+          {icon: 'face', title: 'Sign up', link: '/signup'},
+          {icon: 'lock_open', title: 'Sign in', link: '/signin'}          
       ]
+      if (this.userIsAuthenticated) {
+        menuItems = [
+          {icon: 'supervisor_account', title: 'View Posts', link: '/Posts'},
+          {icon: 'room', title: 'Organize a new Post', link: '/CreatePost'},
+          {icon: 'person', title: 'Profile', link: '/Profile'}
+        ]
+      }
+      return menuItems
+    },
+    userIsAuthenticated () {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     }
   },
   props: {

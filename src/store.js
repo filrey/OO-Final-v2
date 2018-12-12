@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import * as firebase from 'firebase'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -35,14 +35,14 @@ export default new Vuex.Store({
         description: 'hey now you a rockstar'
       }
     ],
-    user: {
-      id: 'owefruoige',
-      registeredPosts: ['weijfnwijne']
-    }
+    user: null
   },
   mutations: {
      createPost(state, payload) {
       state.loadedPosts.push(payload)
+    },
+    setUser(state, payload) {
+      state.user = payload
     }
   },
   actions: {
@@ -57,6 +57,23 @@ export default new Vuex.Store({
       }
       // Reach out to firebase and store it
       commit('createPost', post)
+    },
+    signUserUp({ commit }, payload) {
+      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+        .then(
+          user => {
+            const newUser = {
+              id: user.uid,
+              registeredPosts: []
+            }
+            commit('setUser', newUser)
+          }
+        )
+        .catch(
+          error => {
+            console.log(error)
+          }
+        )
     }
   },
   getters: {
@@ -74,6 +91,9 @@ export default new Vuex.Store({
           return post.id === postId
         })
       }
+    },
+    user(state) {
+      return state.user
     }
   }
 })
