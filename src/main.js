@@ -5,8 +5,11 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import * as firebase from 'firebase'
+import AlertCmp from './components/Shared/Alert.vue'
 
 Vue.config.productionTip = false
+
+Vue.component('app-alert', AlertCmp)
 
 new Vue({
   router,

@@ -74,7 +74,7 @@ export default {
       if (this.userIsAuthenticated) {
         menuItems = [
           {icon: 'supervisor_account', title: 'View Posts', link: '/Posts'},
-          {icon: 'room', title: 'Organize a new Post', link: '/CreatePost'},
+          {icon: 'room', title: 'Create a new Post', link: '/CreatePost'},
           {icon: 'person', title: 'Profile', link: '/Profile'}
         ]
       }
@@ -89,3 +89,41 @@ export default {
   }
 }
 </script>
+<style>
+.custom-loader {
+  animation: loader 1s infinite;
+  display: flex;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style>
