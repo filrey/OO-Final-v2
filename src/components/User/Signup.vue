@@ -13,35 +13,35 @@
               <form @submit.prevent="onSignup">
                 <v-layout row>
                   <v-flex xs12>
-                    <v-textarea
+                    <v-text-field
                       name="email"
                       label="Mail"
                       id="email"
                       v-model="email"
                       type="email"
-                      required></v-textarea>
+                      required></v-text-field>
                   </v-flex>
                 </v-layout>
                 <v-layout row>
                   <v-flex xs12>
-                    <v-textarea
+                    <v-text-field
                       name="password"
                       label="Password"
                       id="password"
                       v-model="password"
                       type="password"
-                      required></v-textarea>
+                      required></v-text-field>
                   </v-flex>
                 </v-layout>
                 <v-layout row>
                   <v-flex xs12>
-                    <v-textarea
+                    <v-text-field
                       name="confirmPassword"
                       label="Confirm Password"
                       id="confirmPassword"
                       v-model="confirmPassword"
                       type="password"
-                      :rules="[comparePasswords]"></v-textarea>
+                      :rules="[comparePasswords]"></v-text-field>
                   </v-flex>
                 </v-layout>
                 <v-layout row>

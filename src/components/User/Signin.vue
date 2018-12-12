@@ -13,24 +13,24 @@
               <form @submit.prevent="onSignin">
                 <v-layout row>
                   <v-flex xs12>
-                    <v-textarea
+                    <v-text-field
                       name="email"
-                      label="Mail"
+                      label="Email"
                       id="email"
                       v-model="email"
                       type="email"
-                      required></v-textarea>
+                      required></v-text-field>
                   </v-flex>
                 </v-layout>
                 <v-layout row>
                   <v-flex xs12>
-                    <v-textarea
+                    <v-text-field
                       name="password"
                       label="Password"
                       id="password"
                       v-model="password"
                       type="password"
-                      required></v-textarea>
+                      required></v-text-field>
                   </v-flex>
                 </v-layout>
                 <v-layout row>
