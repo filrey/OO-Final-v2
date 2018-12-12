@@ -11,8 +11,8 @@
                         aspect-ratio="2.75"
                         ></v-img>
                     <v-card-text>
-                        <div class="info--text">{{post.date}} - Where it takes place</div>
-                        <div>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque quos consequatur repellat illo eveniet, fugit harum ullam ipsam iusto sapiente omnis aperiam maxime expedita quae consequuntur totam perspiciatis. Nesciunt, quia.</div>
+                        <div class="info--text">{{post.date}}</div>
+                        <div>{{post.description}}</div>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>

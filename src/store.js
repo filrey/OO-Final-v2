@@ -11,24 +11,28 @@ export default new Vuex.Store({
         id: '1',
         title: 'placeholder title',
         date: '12-12-2018',
+        description: 'hey now you a rockstar'
       },
       {
         src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
         id: '2',
         title: 'placeholder title',
         date: '12-12-2018',
+        description: 'hey now you a rockstar'
       },
       {
         src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
         id: '3',
         title: 'placeholder title',
         date: '12-12-2018',
+        description: 'hey now you a rockstar'
       },
       {
         src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
         id: '4',
         title: 'placeholder title',
         date: '12-12-2018',
+        description: 'hey now you a rockstar'
       }
     ],
     user: {
