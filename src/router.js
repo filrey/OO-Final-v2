@@ -32,6 +32,7 @@ export default new Router({
     {
       path: '/Posts/:id',
       name: 'Post',
+      props: true,
       component: Post
     },
     {

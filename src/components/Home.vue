@@ -28,30 +28,9 @@
 
 <script>
   export default {
-    data () {
-      return {
-        Posts: [
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-            id: '1',
-            title: 'placeholder title'
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-            id: '2',
-            title: 'placeholder title'
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-            id: '3',
-            title: 'placeholder title'
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-            id: '4',
-            title: 'placeholder title'
-          }
-        ]
+    computed: {
+      Posts () {
+        return this.$store.getters.featuredPosts
       }
     },
     methods: {
