@@ -6,6 +6,8 @@ import Posts from '@/components/Post/Posts.vue'
 import Profile from '@/components/User/Profile.vue'
 import Signin from '@/components/User/Signin.vue'
 import Signup from '@/components/User/Signup.vue'
+import Post from '@/components/Post/Post.vue'
+
 
 
 Vue.use(Router)
@@ -26,6 +28,11 @@ export default new Router({
       path: '/Posts',
       name: 'Posts',
       component: Posts
+    },
+    {
+      path: '/Posts/:id',
+      name: 'Post',
+      component: Post
     },
     {
       path: '/Profile',

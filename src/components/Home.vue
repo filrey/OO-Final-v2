@@ -14,6 +14,7 @@
                 <v-carousel-item
                 v-for="(item,i) in Posts"
                 :key="i"
+                @click="onLoadPost(item.id)"
                 :src="item.src">
                 <v-card>
                     <v-toolbar-title>{{item.title}}</v-toolbar-title>
@@ -51,6 +52,11 @@
             title: 'placeholder title'
           }
         ]
+      }
+    },
+    methods: {
+      onLoadPost(id) {
+        this.$router.push('/posts/' + id)
       }
     }
   }
