@@ -37,10 +37,23 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-
+     createPost(state, payload) {
+      state.loadedPosts.push(payload)
+    }
   },
   actions: {
-
+    createPost({ commit }, payload) {
+      const post = {
+        title: payload.title,
+        location: payload.location,
+        src: payload.imageUrl,
+        description: payload.description,
+        date: payload.date,
+        id: 'kfdlsfjslakl12'
+      }
+      // Reach out to firebase and store it
+      commit('createPost', post)
+    }
   },
   getters: {
     loadedPosts (state) {
