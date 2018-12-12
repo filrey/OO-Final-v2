@@ -40,6 +40,9 @@ export default new Vuex.Store({
     error: null
   },
   mutations: {
+    setLoadedPosts(state, payload) {
+      state.loadedPosts = payload
+    },
      createPost(state, payload) {
       state.loadedPosts.push(payload)
     },
@@ -57,17 +60,53 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    createPost({ commit }, payload) {
+    loadPosts({ commit }) {
+      commit('setLoading', true)
+      firebase.database().ref('posts').once('value')
+        .then((data) => {
+          const posts = []
+          const obj = data.val()
+          for (let key in obj) {
+            posts.push({
+              id: key,
+              title: obj[key].title,
+              description: obj[key].description,
+              imageUrl: obj[key].imageUrl,
+              date: obj[key].date,
+              creatorId: obj[key].creatorId
+            })
+          }
+          commit('setLoadedPosts', posts)
+          commit('setLoading', false)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+            commit('setLoading', false)
+          }
+        )
+    },
+    createPost({ commit, getters }, payload) {
       const post = {
         title: payload.title,
         location: payload.location,
         src: payload.imageUrl,
         description: payload.description,
-        date: payload.date,
-        id: 'kfdlsfjslakl12'
+        creatorId: getters.user.id
       }
+      firebase.database().ref('posts').push(post)
+        .then((data) => {
+          const key = data.key
+          commit('createMeetup', {
+            ...post,
+            id: key
+          })
+        })
+        .catch((error) => {
+          console.log(error)
+        })
       // Reach out to firebase and store it
-      commit('createPost', post)
+
     },
     signUserUp({ commit }, payload) {
       commit('setLoading', true)
@@ -112,6 +151,13 @@ export default new Vuex.Store({
             console.log(error)
           }
         )
+    },
+    autoSignIn({ commit }, payload) {
+      commit('setUser', { id: payload.uid, registeredMeetups: [] })
+    },
+    logout({ commit }) {
+      firebase.auth().signOut()
+      commit('setUser', null)
     },
     clearError({ commit }) {
       commit('clearError')

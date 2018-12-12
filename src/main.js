@@ -23,5 +23,11 @@ new Vue({
       projectId: "comp-586-final",
       storageBucket: "comp-586-final.appspot.com",
     })
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.$store.dispatch('autoSignIn', user)
+      }
+    })
+    this.$store.dispatch('loadPosts')
   }
 }).$mount('#app')
