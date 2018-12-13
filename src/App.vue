@@ -30,9 +30,11 @@
     </v-navigation-drawer>
     <v-toolbar color="blue-grey" dark fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <router-link to="/" tag="span" style="cursor: pointer">
       <v-toolbar-title>
-        <router-link to="/" tag="span"></router-link>
         OO-Project-Final</v-toolbar-title>
+        
+        </router-link>
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
