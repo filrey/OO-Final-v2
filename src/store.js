@@ -9,28 +9,28 @@ export default new Vuex.Store({
       {
         src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
         id: '1',
-        title: 'placeholder title',
+        title: 'Squirrels Take Over CSUN',
         date: '12-12-2018',
         description: 'hey now you a rockstar'
       },
       {
         src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
         id: '2',
-        title: 'placeholder title',
+        title: 'Clouds are nice',
         date: '12-12-2018',
         description: 'hey now you a rockstar'
       },
       {
         src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
         id: '3',
-        title: 'placeholder title',
+        title: 'The Fastest Bird?',
         date: '12-12-2018',
         description: 'hey now you a rockstar'
       },
       {
         src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
         id: '4',
-        title: 'placeholder title',
+        title: 'You like space so do we',
         date: '12-12-2018',
         description: 'hey now you a rockstar'
       }

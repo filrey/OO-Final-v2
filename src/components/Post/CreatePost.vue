@@ -48,7 +48,7 @@
             <v-flex xs12 sm6 offset-sm3>
               <v-text-field
                 name="description"
-                label="Description"
+                label="Body"
                 id="description"
                 multi-line
                 v-model="description"
