@@ -101,7 +101,6 @@
           location: this.location,
           image: this.image,
           description: this.description,
-          date: new Date()
         }
         this.$store.dispatch('createPost', postData)
         this.$router.push('/Posts')

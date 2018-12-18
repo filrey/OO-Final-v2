@@ -103,15 +103,15 @@ export default new Vuex.Store({
         .then(key => {
           const filename = payload.image.name
           const ext = filename.slice(filename.lastIndexOf('.'))
-          return firebase.storage().ref('meetups/' + key + '.' + ext).put(payload.image)
+          return firebase.storage().ref('posts/' + key + '.' + ext).put(payload.image)
         })
         .then(fileData => {
           imageUrl = fileData.metadata.downloadURLs[0]
-          return firebase.database().ref('meetups').child(key).update({ imageUrl: imageUrl })
+          return firebase.database().ref('posts').child(key).update({ imageUrl: imageUrl })
         })
         .then(() => {
           const key = data.key
-          commit('createMeetup', {
+          commit('createPost', {
             ...post,
             imageUrl: imageUrl,
             id: key
@@ -168,7 +168,7 @@ export default new Vuex.Store({
         )
     },
     autoSignIn({ commit }, payload) {
-      commit('setUser', { id: payload.uid, registeredMeetups: [] })
+      commit('setUser', { id: payload.uid, registeredPosts: [] })
     },
     logout({ commit }) {
       firebase.auth().signOut()
