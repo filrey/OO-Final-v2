@@ -25,7 +25,7 @@
                 v-for="(item,i) in Posts"
                 :key="i"
                 @click="onLoadPost(item.id)"
-                :src="item.src">
+                :src="item.imageUrl">
                 <v-card>
                     <v-toolbar-title>{{item.title}}</v-toolbar-title>
                 </v-card>
