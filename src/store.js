@@ -1,34 +1,35 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as firebase from 'firebase'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     loadedPosts: [
       {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+        imageUrl: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
         id: '1',
         title: 'Squirrels Take Over CSUN',
         date: '12-12-2018',
         description: 'hey now you a rockstar'
       },
       {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+        imageUrl: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
         id: '2',
         title: 'Clouds are nice',
         date: '12-12-2018',
         description: 'hey now you a rockstar'
       },
       {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+        imageUrl: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
         id: '3',
         title: 'The Fastest Bird?',
         date: '12-12-2018',
         description: 'hey now you a rockstar'
       },
       {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+        imageUrl: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
         id: '4',
         title: 'You like space so do we',
         date: '12-12-2018',
@@ -43,8 +44,19 @@ export default new Vuex.Store({
     setLoadedPosts(state, payload) {
       state.loadedPosts = payload
     },
-     createPost(state, payload) {
+    createPost(state, payload) {
       state.loadedPosts.push(payload)
+    },
+    updatePost(state, payload) {
+      const post = state.loadedPosts.find(post => {
+        return post.id === payload.id
+      })
+      if (payload.title) {
+        post.title = payload.title
+      }
+      if (payload.description) {
+        post.description = payload.description
+      }
     },
     setUser(state, payload) {
       state.user = payload
@@ -73,6 +85,7 @@ export default new Vuex.Store({
               description: obj[key].description,
               imageUrl: obj[key].imageUrl,
               date: obj[key].date,
+              location: obj[key].location,
               creatorId: obj[key].creatorId
             })
           }
@@ -103,25 +116,42 @@ export default new Vuex.Store({
         .then(key => {
           const filename = payload.image.name
           const ext = filename.slice(filename.lastIndexOf('.'))
-          return firebase.storage().ref('posts/' + key + '.' + ext).put(payload.image)
+          return firebase.storage().ref('posts/' + key + ext).put(payload.image)
         })
         .then(fileData => {
-          imageUrl = fileData.metadata.downloadURLs[0]
-          return firebase.database().ref('posts').child(key).update({ imageUrl: imageUrl })
-        })
-        .then(() => {
-          const key = data.key
-          commit('createPost', {
-            ...post,
-            imageUrl: imageUrl,
-            id: key
+          fileData.ref.getDownloadURL().then(function (downloadURL) {
+            imageUrl = downloadURL
+            commit('createPost', {
+              ...post,
+              imageUrl: imageUrl,
+              id: key
+            })
+            return firebase.database().ref('posts').child(key).update({ imageUrl: imageUrl })
           })
         })
         .catch((error) => {
           console.log(error)
         })
       // Reach out to firebase and store it
-
+    },
+    updatePostData({ commit }, payload) {
+      commit('setLoading', true)
+      const updateObj = {}
+      if (payload.title) {
+        updateObj.title = payload.title
+      }
+      if (payload.description) {
+        updateObj.description = payload.description
+      }
+      firebase.database().ref('posts').child(payload.id).update(updateObj)
+        .then(() => {
+          commit('setLoading', false)
+          commit('updatePost', payload)
+        })
+        .catch(error => {
+          console.log(error)
+          commit('setLoading', false)
+        })
     },
     signUserUp({ commit }, payload) {
       commit('setLoading', true)
@@ -179,15 +209,15 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    loadedPosts (state) {
+    loadedPosts(state) {
       return state.loadedPosts.sort((postA, postB) => {
         return postA.date > postB.date
       })
     },
-    featuredPosts (state, getters) {
-      return getters.loadedPosts.slice(0,5)
+    featuredPosts(state, getters) {
+      return getters.loadedPosts.slice(0, 5)
     },
-    loadedPost (state) {
+    loadedPost(state) {
       return (postId) => {
         return state.loadedPosts.find((post) => {
           return post.id === postId

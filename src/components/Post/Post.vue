@@ -7,7 +7,7 @@
                         <h2 class="primary--text">{{ post.title }}</h2>
                     </v-card-title>
                     <v-img
-                        :src="post.src"
+                        :src="post.imageUrl"
                         aspect-ratio="2.75"
                         ></v-img>
                     <v-card-text>

@@ -7,7 +7,7 @@
                         <v-layout row>
                             <v-flex xs5 sm4 md3>
                                 <v-img
-                                :src="post.src"
+                                :src="post.imageUrl"
                                 aspect-ratio="2.75"
                                 ></v-img>
                             </v-flex>
